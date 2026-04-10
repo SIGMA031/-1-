@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>烟熏色与粉 · 郁金香小札</title>
+    <title>火炉旁烤肉 · 然然邀你来</title>
     <style>
-        /* 重置 & 打印专用：A3 尺寸，温柔复古 */
+        /* 重置 & 打印专用：A3 尺寸，夜宵烤肉风 */
         * {
             margin: 0;
             padding: 0;
@@ -38,16 +38,16 @@
             position: relative;
         }
 
-        /* 装饰手绘线 —— 郁金香轮廓点缀 */
+        /* 装饰手绘线 —— 烟火与烤串点缀 */
         .print-card::before {
-            content: "🌷🌷🌷";
+            content: "🔥🍖🔥";
             position: absolute;
-            top: 20px;
+            top: 18px;
             right: 40px;
             font-size: 2.2rem;
-            opacity: 0.2;
+            opacity: 0.18;
             letter-spacing: 8px;
-            transform: rotate(3deg);
+            transform: rotate(-1deg);
             pointer-events: none;
         }
 
@@ -89,7 +89,7 @@
             font-size: 2.8rem;          /* 从3.2rem 缩小 */
             font-weight: 400;
             letter-spacing: 6px;
-            color: #b35e7c;
+            color: #c94a1f;
             font-family: 'Georgia', 'Times New Roman', serif;
             margin-bottom: 10px;         /* 从15px 缩小 */
             text-shadow: 2px 2px 0 #ffe7e0;
@@ -97,7 +97,7 @@
 
         .title-section .sub {
             font-size: 1.4rem;
-            color: #aa7a6b;
+            color: #8a3f1a;
             font-style: italic;
             margin-top: 8px;
             word-spacing: 2px;
@@ -106,7 +106,7 @@
         .divider {
             width: 180px;                /* 从200px 缩小 */
             height: 2px;
-            background: linear-gradient(90deg, transparent, #e9bcae, #e3aa99, #e9bcae, transparent);
+            background: linear-gradient(90deg, transparent, #f6a65a, #e96a22, #f6a65a, transparent);
             margin: 15px auto 20px auto; /* 从30px auto 缩小 */
             border-radius: 4px;
         }
@@ -374,6 +374,106 @@
             transform: rotate(-5deg);
         }
 
+        /* 地点与地图样式 */
+        .place-card {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin: 20px 0;
+        }
+        .place-card .place-left {
+            flex: 1;
+        }
+        .place-card .place-left h2 {
+            font-size: 1.6rem;
+            color: #c94a1f;
+            margin-bottom: 6px;
+        }
+        .place-card .address {
+            color: #6b4a3f;
+            margin-bottom: 8px;
+        }
+        .place-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .btn {
+            background: #f6a65a;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .btn.secondary {
+            background: #e8c5b0;
+            color: #5a2f1a;
+        }
+        .btn.rsvp.active {
+            background: #9c3a1a;
+        }
+        .map-container {
+            flex: 1;
+            min-height: 220px;
+            max-height: 260px;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 12px;
+        }
+        .rsvp-info {
+            color: #9c3a1a;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        /* 地图放大覆盖层 */
+        .map-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.6);
+            z-index: 9999;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+        .map-overlay.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        .map-overlay .overlay-content {
+            width: 90%;
+            height: 85%;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        .map-overlay .overlay-content iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .map-overlay .overlay-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #c94a1f;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
         /* 打印优化：A3 尺寸，无边距留白适中 */
         @media print {
             @page {
@@ -429,97 +529,115 @@
         <div class="greeting"></div>
 
         <div class="title-section">
-            <h1>粉郁金香·养护手册</h1>
-            <div class="sub">一只烟熏色的瓶，一束柔软的花，和一点春天的意思。</div>
+            <h1>烟火烤肉·邀你来</h1>
+            <div class="sub">一串热火，一家好友，一顿烤肉的约定。</div>
             <div class="divider"></div>
+        </div>
+
+        <!-- 地点卡片：火炉旁烤肉（万科店） -->
+        <div class="place-card">
+            <div class="place-left">
+                <h2>火炉旁烤肉（万科店）</h2>
+                <p class="address">长安区西长安街长安万科广场4楼404号 火炉旁烤肉(万科店)</p>
+                <div class="place-actions">
+                    <button class="btn btn-rsvp" id="rsvpBtn">我要来</button>
+                    <button class="btn" id="copyAddrBtn">复制地址</button>
+                    <button class="btn" id="directionsBtn">查看路线</button>
+                    <button class="btn" id="expandMapBtn">放大地图</button>
+                </div>
+                <p class="rsvp-info" id="rsvpInfo" style="display:none">你已报名。</p>
+            </div>
+            <div class="map-container">
+                <iframe id="mapIframe" src="https://www.google.com/maps?q=长安区西长安街长安万科广场4楼404号火炉旁烤肉(万科店)&z=17&output=embed" frameborder="0" allowfullscreen loading="lazy"></iframe>
+            </div>
         </div>
 
         <!-- 第一封絮语 —— 去掉AI感，像面对面说话 -->
         <div class="letter-intro">
-            选这个烟灰色花瓶时，我就想：它应该很衬这束粉色的郁金香。<br>
-            花是鲜切的，带着春天的弧度。下面的文字，写给花，也写给你——有空的时候，一起看看
+            选这家烤肉店，是因为烟火和笑声都合适。<br>
+            下面的文字，是一张随性的烤肉邀请：今晚一起去吃烤肉吗？
         </div>
 
         <!-- 养护步骤 · 用两栏让A3更饱满，每一条都加了温润的旁白 -->
         <div class="step-grid">
             <!-- 1 -->
             <div class="step-item">
-                <div class="step-icon">🏡</div>
+                <div class="step-icon">📍</div>
                 <div class="step-content">
-                    <h3>安 家 · 第一眼温柔</h3>
-                    <p>就用那只<strong>烟熏色/透明花瓶</strong>（高25cm），装10~15厘米清水。水位刚好抱住根部就行，多了它反而喘不过气。</p>
-                    <span class="note">✨ 瓶子已经洗得透亮，直接倒水就行</span>
+                    <h3>集合 · 时间地点</h3>
+                    <p>今晚 7 点，老地方烤肉店门口见（或你方便的时间地点）。带好胃口，准时到的人有肉！</p>
+                    <span class="note">✨ 建议提前订位，避免等位</span>
                 </div>
             </div>
             <!-- 2 -->
             <div class="step-item">
-                <div class="step-icon">✂️</div>
+                <div class="step-icon">🍖</div>
                 <div class="step-content">
-                    <h3>修 整 · 剪去小烦恼</h3>
-                    <p>如果花茎底部有点变色，就<strong>斜剪2~3厘米</strong>，像剪掉一天的不开心。叶子别泡水，摘掉就好。</p>
-                    <span class="note">🌱 斜剪一口，吸水更快乐</span>
+                    <h3>点 菜 · 推荐组合</h3>
+                    <p>推荐：牛五花、鸡翅、蔬菜串和泡菜。喜欢重口味的可以加辣酱，大家分着点更丰富。</p>
+                    <span class="note">🌶️ 分享着吃更快乐</span>
                 </div>
             </div>
             <!-- 3 -->
             <div class="step-item">
-                <div class="step-icon">💧</div>
+                <div class="step-icon">🍺</div>
                 <div class="step-content">
-                    <h3>更 新 · 每日仪式</h3>
-                    <p><strong>1~2天换一次水</strong>，换水时顺手冲一下瓶壁，别让水里长滑滑的东西。可以再剪掉1厘米根茎，让它也透透气。</p>
+                    <h3>饮 料 · 搭配</h3>
+                    <p>带些饮料或啤酒一起分着喝，烤肉配冰饮最对味。也可以约好AA或谁请客。</p>
                 </div>
             </div>
             <!-- 4 -->
             <div class="step-item">
-                <div class="step-icon">✨</div>
+                <div class="step-icon">🔥</div>
                 <div class="step-content">
-                    <h3>小 癖 好 · 追光的它</h3>
-                    <p>放在明亮通风处，但别暴晒，远离空调。郁金香会歪头找光，偶尔转一下花瓶，它就站得直直的。</p>
-                    <span class="note">🍎 苹果、梨会催花，让它们分开放</span>
+                    <h3>贴 士 · 安全与着装</h3>
+                    <p>穿不怕油烟的衣服，注意火候，边烤边翻才能更好吃。有人负责刷酱就不慌张。</p>
+                    <span class="note">🍎 不要带强烈香水，避免影响食味</span>
                 </div>
             </div>
         </div>
 
         <!-- 水培小记忆（特别提醒，语气像聊天） -->
         <div class="hydro-tip">
-            <span style="font-size:2.2rem;">🧊</span>
-            <div><strong>悄悄告诉你——</strong> 如果是带种球的郁金香，水位千万不能没过球根，只让底部碰到水就好。不过你这次拿到的是鲜切花，按上面步骤来就行～以后要是想试试养球根，也可以再一起琢磨。</div>
+            <span style="font-size:2.2rem;">🔥</span>
+            <div><strong>悄悄告诉你——</strong> 如果想外带烤肉，提前订位或预约外带可以省去等位。今天我们就享受热闹和烟火吧。</div>
         </div>
 
         <!-- 烟灰/透明对比 —— 特意放大了浪漫寓意 -->
         <div class="insight-wrapper">
             <div class="insight-title">
-                <span>🫧</span> 两只瓶子 · 两种感觉
+                <span>🍢</span> 两家风味 · 兩種吃法
             </div>
             <div class="vase-compare">
                 <div class="vase-item">
-                    <h4>烟灰色</h4>
-                    <div class="tag">薄雾·静谧·耐看</div>
+                    <h4>炭火烤</h4>
+                    <div class="tag">焦香·传统·豪放</div>
                     <div class="vase-desc">
-                        像凌晨五点的湖面，把粉色柔成一片霞。放在书桌或窗台，它不言语，却让你的心忽然静下来。
+                        炭火烤出的边焦里嫩，带着烟香，适合下酒和大口吃肉的朋友。
                     </div>
                 </div>
                 <div class="vase-item">
-                    <h4>透明色</h4>
-                    <div class="tag">纯粹·透亮·赤诚</div>
+                    <h4>韩式铁板</h4>
+                    <div class="tag">多汁·甜辣·分享</div>
                     <div class="vase-desc">
-                        毫无遮掩地露出根与茎，像少女时代的心事，清澈见底。和任何颜色都合拍，一如你本来的样子。
+                        铁板或韩式烤法注重酱香与配菜，适合喜欢拌饭和口味层次的人。
                     </div>
                 </div>
             </div>
             <div class="meaning-box">
-                <p>🎐 送你花瓶，是想让这份美好停留久一点。花会谢，但瓶子会一直在这儿，等下一枝花，也记得这个春天——烟熏色和粉色放在一起，还挺好看的。</p>
+                <p>🎐 约你吃烤肉，是想把热闹和美味一起分享。肉会吃完，但今晚的笑声留下。</p>
             </div>
         </div>
 
         <!-- 瓶高和花枝的关系，带一点俏皮 -->
         <div class="size-poem">
-            🌿 25cm的花瓶，和30~55cm的郁金香，是黄金比例。如果觉得花茎太修长，就大胆斜剪一段——剪完插瓶，它会更精神，像你偶尔理理刘海，焕然一新。
+            🌿 长串适合分享，短串适合下酒。带点耐心和好胃口，烤出来的滋味会更香。
         </div>
 
         <!-- 手写落款，留了空间给你填名字 -->
         <div class="signature-area">
             <div class="signature-left">
-                <p>愿你每次换水，都有一小段空白时间，只属于你自己。</p>
+                <p>愿你每次出门，都有一段好胃口和好朋友。</p>
                 <div class="signature-hand">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
@@ -528,16 +646,112 @@
                 </div>
             </div>
             <div class="date-small">
-                <span>🌸  &nbsp; 三月初 · 风还凉 · 带了一束花来</span><br>
+                <span>🔥  &nbsp; 今晚七点 · 烤肉见</span><br>
             </div>
         </div>
 
         <!-- 最末的小诗，自然不刻意 -->
         <div class="tiny-footer">
-            <span>🌷 郁金香会歪头找太阳，</span>
-            <span>转一下花瓶就好。</span>
-            <span class="tulip-bulb">🌷</span>
+            <span>🔥 烤肉的香气会叫你站起身，</span>
+            <span>带上好胃口就来。</span>
+            <span class="tulip-bulb">🍖</span>
         </div>
+
+        <!-- 地图放大覆盖层 -->
+        <div id="mapOverlay" class="map-overlay" aria-hidden="true">
+            <div class="overlay-content">
+                <button id="overlayClose" class="overlay-close">关闭</button>
+                <iframe id="overlayMapIframe" src="" loading="lazy"></iframe>
+            </div>
+        </div>
+
+        <script>
+        (function(){
+            const address = '长安区西长安街长安万科广场4楼404号 火炉旁烤肉(万科店)';
+            const mapQuery = encodeURIComponent(address);
+            const mapSrc = 'https://www.google.com/maps?q=' + mapQuery + '&z=17&output=embed';
+            const directionsUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + mapQuery;
+
+            const mapIframe = document.getElementById('mapIframe');
+            if(mapIframe) mapIframe.src = mapSrc;
+
+            const rsvpKey = 'rsvpFurnaceVanke';
+            const rsvpBtn = document.getElementById('rsvpBtn');
+            const copyBtn = document.getElementById('copyAddrBtn');
+            const dirBtn = document.getElementById('directionsBtn');
+            const expandBtn = document.getElementById('expandMapBtn');
+            const rsvpInfo = document.getElementById('rsvpInfo');
+            const overlay = document.getElementById('mapOverlay');
+            const overlayIframe = document.getElementById('overlayMapIframe');
+            const overlayClose = document.getElementById('overlayClose');
+
+            function updateRsvpUI(){
+                if(localStorage.getItem(rsvpKey) === 'yes'){
+                    rsvpBtn.textContent = '已报名';
+                    rsvpBtn.classList.add('active');
+                    rsvpInfo.style.display = 'block';
+                } else {
+                    rsvpBtn.textContent = '我要来';
+                    rsvpBtn.classList.remove('active');
+                    rsvpInfo.style.display = 'none';
+                }
+            }
+
+            if(rsvpBtn){
+                rsvpBtn.addEventListener('click', function(){
+                    if(localStorage.getItem(rsvpKey) === 'yes'){
+                        localStorage.removeItem(rsvpKey);
+                    } else {
+                        localStorage.setItem(rsvpKey, 'yes');
+                    }
+                    updateRsvpUI();
+                });
+            }
+            if(copyBtn){
+                copyBtn.addEventListener('click', function(){
+                    if(navigator.clipboard && navigator.clipboard.writeText){
+                        navigator.clipboard.writeText(address).then(function(){
+                            const old = copyBtn.textContent;
+                            copyBtn.textContent = '已复制';
+                            setTimeout(()=> copyBtn.textContent = old, 2000);
+                        }).catch(function(){ alert('复制失败，请手动复制：\n' + address); });
+                    } else {
+                        alert('复制地址：\n' + address);
+                    }
+                });
+            }
+            if(dirBtn){
+                dirBtn.addEventListener('click', function(){
+                    window.open(directionsUrl, '_blank');
+                });
+            }
+            if(expandBtn && overlay && overlayIframe){
+                expandBtn.addEventListener('click', function(){
+                    overlayIframe.src = mapSrc;
+                    overlay.classList.add('show');
+                });
+                overlayClose.addEventListener('click', function(){
+                    overlay.classList.remove('show');
+                    overlayIframe.src = '';
+                });
+                overlay.addEventListener('click', function(e){
+                    if(e.target === overlay){
+                        overlay.classList.remove('show');
+                        overlayIframe.src = '';
+                    }
+                });
+                document.addEventListener('keydown', function(e){
+                    if(e.key === 'Escape') {
+                        overlay.classList.remove('show');
+                        overlayIframe.src = '';
+                    }
+                });
+            }
+
+            // 初始化
+            updateRsvpUI();
+        })();
+        </script>
 
         <!-- 底部留一点余白 -->
         <div style="height: 8px;"></div>

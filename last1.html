@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>烟熏色与粉 · 郁金香小札</title>
+    <style>
+        /* 重置 & 打印专用：A3 尺寸，温柔复古 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ece2db;  /* 暖灰底，模拟旧纸 */
+            font-family: 'Georgia', 'Times New Roman', '宋体', 'SimSun', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* 主卡片——最终打印会铺满A3，这里先给一个舒服的预览宽度 */
+        .print-card {
+            max-width: 1050px;        /* 比A4宽，预览舒服，打印时由@page控制 */
+            width: 100%;
+            background-color: #fffdfb;  /* 柔白底 */
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(252, 235, 230, 0.4) 0%, transparent 30%),
+                radial-gradient(circle at 90% 70%, rgba(242, 219, 216, 0.3) 0%, transparent 40%);
+            box-shadow: 0 20px 40px rgba(140, 100, 90, 0.12), 0 8px 20px rgba(90, 60, 50, 0.05);
+            border-radius: 32px;        /* 圆润如卡片 */
+            padding: 45px 50px;         /* 从70px 80px 缩小 */
+            border: 1px solid #f0d2c4;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        /* 装饰手绘线 —— 郁金香轮廓点缀 */
+        .print-card::before {
+            content: "🌷🌷🌷";
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 2.2rem;
+            opacity: 0.2;
+            letter-spacing: 8px;
+            transform: rotate(3deg);
+            pointer-events: none;
+        }
+
+        .print-card::after {
+            content: "";
+            position: absolute;
+            bottom: 30px;
+            left: 50px;
+            width: 150px;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60" opacity="0.1"><path d="M20,30 Q35,5 50,30 T80,30" stroke="%23d9a79a" fill="none" stroke-width="2"/><circle cx="40" cy="22" r="3" fill="%23d9a79a"/><circle cx="60" cy="22" r="3" fill="%23d9a79a"/></svg>');
+            background-repeat: no-repeat;
+            background-size: contain;
+            pointer-events: none;
+        }
+
+        /* 整体文字颜色温润 */
+        .print-card {
+            color: #4a403b;
+            line-height: 1.65;
+        }
+
+        /* 标题区域 —— 更松弛，带称呼 */
+        .greeting {
+            font-family: 'Brush Script MT', cursive, 'Georgia';
+            font-size: 2.2rem;
+            color: #b28274;
+            margin-bottom: 5px;
+            font-weight: 400;
+        }
+
+        .title-section {
+            text-align: center;
+            margin-bottom: 25px;        /* 从40px 缩小 */
+            position: relative;
+        }
+
+        .title-section h1 {
+            font-size: 2.8rem;          /* 从3.2rem 缩小 */
+            font-weight: 400;
+            letter-spacing: 6px;
+            color: #b35e7c;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            margin-bottom: 10px;         /* 从15px 缩小 */
+            text-shadow: 2px 2px 0 #ffe7e0;
+        }
+
+        .title-section .sub {
+            font-size: 1.4rem;
+            color: #aa7a6b;
+            font-style: italic;
+            margin-top: 8px;
+            word-spacing: 2px;
+        }
+
+        .divider {
+            width: 180px;                /* 从200px 缩小 */
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e9bcae, #e3aa99, #e9bcae, transparent);
+            margin: 15px auto 20px auto; /* 从30px auto 缩小 */
+            border-radius: 4px;
+        }
+
+        /* 引言部分 —— 给你的一封信 */
+        .letter-intro {
+            font-size: 1.2rem;
+            background: #fcf4f0;
+            padding: 18px 28px;          /* 从24px 34px 缩小 */
+            border-radius: 80px 80px 80px 80px / 50px 50px 50px 50px;
+            margin-bottom: 30px;          /* 从40px 缩小 */
+            color: #5f443c;
+            text-align: center;
+            box-shadow: inset 0 -2px 0 #f0cdc0;
+            border: 1px solid #fadcd2;
+            font-style: normal;
+            max-width: 90%;               /* 从85% 放宽 */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .letter-intro i {
+            color: #b4626a;
+        }
+
+        /* 双列步骤网格，充分利用A3宽度 */
+        .step-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 30px;              /* 从30px 40px 缩小 */
+            margin: 25px 0 20px;          /* 从45px 0 30px 缩小 */
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;                    /* 从18px 缩小 */
+            padding: 8px 0;                /* 从12px 0 缩小 */
+            border-bottom: 1px dashed #f0cfc2;
+        }
+
+        .step-icon {
+            min-width: 52px;               /* 从60px 缩小 */
+            height: 52px;                  /* 从60px 缩小 */
+            background-color: #fbebe6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;               /* 从2.2rem 缩小 */
+            color: #b35e6b;
+            box-shadow: 0 6px 10px rgba(200, 130, 120, 0.15);
+            transition: transform 0.2s;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h3 {
+            font-size: 1.5rem;             /* 从1.7rem 缩小 */
+            font-weight: 400;
+            color: #7b5549;
+            margin-bottom: 5px;             /* 从8px 缩小 */
+            font-family: 'Georgia', serif;
+            border-left: 3px solid #eac0b3;
+            padding-left: 10px;             /* 从12px 缩小 */
+        }
+
+        .step-content p {
+            font-size: 1.1rem;
+            color: #564742;
+            margin-bottom: 6px;
+        }
+
+        .step-content .note {
+            font-size: 1rem;
+            color: #987c70;
+            background-color: #f8eee9;
+            padding: 6px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 8px;
+            border: 1px dotted #e2bcae;
+        }
+
+        /* 烟灰&粉 特别专栏 */
+        .insight-wrapper {
+            background-color: #f9f1ea;
+            border-radius: 40px 40px 40px 10px;  /* 从48px 48px 48px 12px 缩小 */
+            padding: 28px 32px;                   /* 从40px 48px 缩小 */
+            margin: 30px 0 25px;                   /* 从50px 0 40px 缩小 */
+            border-right: 8px solid #cfaea0;
+            border-bottom: 4px solid #e2c3b6;
+        }
+
+        .insight-title {
+            font-size: 2rem;
+            font-weight: 400;
+            color: #9f5d5a;
+            margin-bottom: 20px;                   /* 从25px 缩小 */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .insight-title span {
+            font-size: 2.4rem;
+        }
+
+        .vase-compare {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;                             /* 从30px 缩小 */
+            justify-content: center;
+        }
+
+        .vase-item {
+            flex: 1 1 200px;                        /* 从240px 缩小 */
+            background: white;
+            border-radius: 30px;                    /* 从36px 缩小 */
+            padding: 20px 16px;                      /* 从28px 20px 缩小 */
+            box-shadow: 0 6px 18px #e9d2c6;
+            text-align: center;
+            border: 1px solid #f5c9bb;
+        }
+
+        .vase-item h4 {
+            font-size: 1.8rem;                       /* 从2rem 缩小 */
+            font-weight: 350;
+            border-bottom: 1px solid #f6c2b2;
+            padding-bottom: 8px;                      /* 从10px 缩小 */
+            margin-bottom: 8px;                        /* 从12px 缩小 */
+            color: #694c41;
+        }
+
+        .vase-item .tag {
+            display: inline-block;
+            background: #d4a79b;
+            color: white;
+            font-size: 1rem;
+            padding: 6px 20px;
+            border-radius: 40px;
+            margin: 8px 0 12px;                        /* 从12px 0 16px 缩小 */
+            letter-spacing: 1.2px;
+            font-style: italic;
+        }
+
+        .vase-desc {
+            font-size: 1.1rem;
+            color: #4c3c35;
+            line-height: 1.6;
+        }
+
+        .meaning-box {
+            margin-top: 22px;                           /* 从32px 缩小 */
+            padding: 18px 24px;                          /* 从22px 30px 缩小 */
+            background: #fffcf9;
+            border-radius: 24px;                         /* 从30px 缩小 */
+            border-left: 6px solid #e1b7a8;
+            font-style: normal;
+        }
+
+        .meaning-box p {
+            font-size: 1.2rem;
+            color: #5f443c;
+        }
+
+        /* 水培tips */
+        .hydro-tip {
+            background-color: #edf3f1;
+            border-radius: 40px;
+            padding: 18px 28px;                          /* 从24px 36px 缩小 */
+            margin: 25px 0 15px;                          /* 从40px 0 20px 缩小 */
+            border: 1px solid #bfcfca;
+            color: #245e5c;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;                                    /* 从15px 缩小 */
+        }
+
+        .hydro-tip strong {
+            color: #1f6d6b;
+            font-weight: 600;
+        }
+
+        /* 花瓶尺寸 + 诗意 */
+        .size-poem {
+            font-size: 1.2rem;
+            background: #f7e4db;
+            border-radius: 60px;                           /* 从80px 缩小 */
+            padding: 16px 24px;                             /* 从20px 30px 缩小 */
+            margin: 20px 0;                                  /* 从30px 0 缩小 */
+            text-align: center;
+            border: 1px solid #e6c1b2;
+            box-shadow: 0 4px 12px #f0d9cf;
+        }
+
+        /* 签名区 更自由 */
+        .signature-area {
+            margin-top: 40px;                               /* 从60px 缩小 */
+            border-top: 3px dotted #ecc0b2;
+            padding-top: 20px;                               /* 从30px 缩小 */
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .signature-left {
+            max-width: 70%;
+        }
+
+        .signature-left p {
+            font-size: 1.1rem;
+            color: #9d786b;
+            margin-bottom: 12px;                             /* 从16px 缩小 */
+        }
+
+        .signature-hand {
+            font-family: 'Brush Script MT', cursive, 'Georgia';
+            font-size: 3rem;
+            color: #b1545c;
+            line-height: 1;
+            border-bottom: 3px solid #f2bfb0;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        .signature-hand small {
+            font-family: 'Georgia', serif;
+            font-size: 1.2rem;
+            color: #b28274;
+            margin-left: 15px;
+        }
+
+        .date-small {
+            font-size: 1.2rem;
+            color: #b18577;
+            text-align: right;
+            border-left: 2px solid #eccabe;
+            padding-left: 20px;
+        }
+
+        /* 小彩蛋 */
+        .tiny-footer {
+            text-align: right;
+            margin-top: 25px;                                /* 从35px 缩小 */
+            font-size: 1rem;
+            color: #cfa798;
+            border-top: 1px dashed #e6cfc4;
+            padding-top: 15px;                                /* 从18px 缩小 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tiny-footer span {
+            font-style: italic;
+        }
+
+        .tulip-bulb {
+            font-size: 3rem;
+            opacity: 0.25;
+            transform: rotate(-5deg);
+        }
+
+        /* 打印优化：A3 尺寸，无边距留白适中 */
+        @media print {
+            @page {
+                size: A3;
+                margin: 1.2cm;          /* 从1.5cm 稍微缩小，给内容更多空间 */
+            }
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .print-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                background: white;
+                padding: 1.5cm 1.8cm;    /* 从2cm 2.2cm 缩小 */
+                max-width: 100%;
+                border-radius: 0;
+                background-image: none !important;
+            }
+            .step-icon {
+                background-color: #f5e2db;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .insight-wrapper, .hydro-tip, .meaning-box, .letter-intro {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                background-color: #faf3ef;
+                border: 1px solid #e0c8be;
+            }
+            .print-card::before, .print-card::after {
+                opacity: 0.1;
+            }
+        }
+
+        /* 手机和平板: 恢复一列 */
+        @media (max-width: 800px) {
+            .print-card {
+                padding: 25px 20px;      /* 从35px 25px 缩小 */
+            }
+            .step-grid {
+                grid-template-columns: 1fr;
+            }
+            .title-section h1 {
+                font-size: 2.2rem;        /* 从2.5rem 缩小 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-card">
+        <!-- 手写感称呼  -->
+        <div class="greeting"></div>
+
+        <div class="title-section">
+            <h1>粉郁金香·养护手册</h1>
+            <div class="sub">一只烟熏色的瓶，一束柔软的花，和一点春天的意思。</div>
+            <div class="divider"></div>
+        </div>
+
+        <!-- 第一封絮语 —— 去掉AI感，像面对面说话 -->
+        <div class="letter-intro">
+            选这个烟灰色花瓶时，我就想：它应该很衬这束粉色的郁金香。<br>
+            花是鲜切的，带着春天的弧度。下面的文字，写给花，也写给你——有空的时候，一起看看
+        </div>
+
+        <!-- 养护步骤 · 用两栏让A3更饱满，每一条都加了温润的旁白 -->
+        <div class="step-grid">
+            <!-- 1 -->
+            <div class="step-item">
+                <div class="step-icon">🏡</div>
+                <div class="step-content">
+                    <h3>安 家 · 第一眼温柔</h3>
+                    <p>就用那只<strong>烟熏色/透明花瓶</strong>（高25cm），装10~15厘米清水。水位刚好抱住根部就行，多了它反而喘不过气。</p>
+                    <span class="note">✨ 瓶子已经洗得透亮，直接倒水就行</span>
+                </div>
+            </div>
+            <!-- 2 -->
+            <div class="step-item">
+                <div class="step-icon">✂️</div>
+                <div class="step-content">
+                    <h3>修 整 · 剪去小烦恼</h3>
+                    <p>如果花茎底部有点变色，就<strong>斜剪2~3厘米</strong>，像剪掉一天的不开心。叶子别泡水，摘掉就好。</p>
+                    <span class="note">🌱 斜剪一口，吸水更快乐</span>
+                </div>
+            </div>
+            <!-- 3 -->
+            <div class="step-item">
+                <div class="step-icon">💧</div>
+                <div class="step-content">
+                    <h3>更 新 · 每日仪式</h3>
+                    <p><strong>1~2天换一次水</strong>，换水时顺手冲一下瓶壁，别让水里长滑滑的东西。可以再剪掉1厘米根茎，让它也透透气。</p>
+                </div>
+            </div>
+            <!-- 4 -->
+            <div class="step-item">
+                <div class="step-icon">✨</div>
+                <div class="step-content">
+                    <h3>小 癖 好 · 追光的它</h3>
+                    <p>放在明亮通风处，但别暴晒，远离空调。郁金香会歪头找光，偶尔转一下花瓶，它就站得直直的。</p>
+                    <span class="note">🍎 苹果、梨会催花，让它们分开放</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 水培小记忆（特别提醒，语气像聊天） -->
+        <div class="hydro-tip">
+            <span style="font-size:2.2rem;">🧊</span>
+            <div><strong>悄悄告诉你——</strong> 如果是带种球的郁金香，水位千万不能没过球根，只让底部碰到水就好。不过你这次拿到的是鲜切花，按上面步骤来就行～以后要是想试试养球根，也可以再一起琢磨。</div>
+        </div>
+
+        <!-- 烟灰/透明对比 —— 特意放大了浪漫寓意 -->
+        <div class="insight-wrapper">
+            <div class="insight-title">
+                <span>🫧</span> 两只瓶子 · 两种感觉
+            </div>
+            <div class="vase-compare">
+                <div class="vase-item">
+                    <h4>烟灰色</h4>
+                    <div class="tag">薄雾·静谧·耐看</div>
+                    <div class="vase-desc">
+                        像凌晨五点的湖面，把粉色柔成一片霞。放在书桌或窗台，它不言语，却让你的心忽然静下来。
+                    </div>
+                </div>
+                <div class="vase-item">
+                    <h4>透明色</h4>
+                    <div class="tag">纯粹·透亮·赤诚</div>
+                    <div class="vase-desc">
+                        毫无遮掩地露出根与茎，像少女时代的心事，清澈见底。和任何颜色都合拍，一如你本来的样子。
+                    </div>
+                </div>
+            </div>
+            <div class="meaning-box">
+                <p>🎐 送你花瓶，是想让这份美好停留久一点。花会谢，但瓶子会一直在这儿，等下一枝花，也记得这个春天——烟熏色和粉色放在一起，还挺好看的。</p>
+            </div>
+        </div>
+
+        <!-- 瓶高和花枝的关系，带一点俏皮 -->
+        <div class="size-poem">
+            🌿 25cm的花瓶，和30~55cm的郁金香，是黄金比例。如果觉得花茎太修长，就大胆斜剪一段——剪完插瓶，它会更精神，像你偶尔理理刘海，焕然一新。
+        </div>
+
+        <!-- 手写落款，留了空间给你填名字 -->
+        <div class="signature-area">
+            <div class="signature-left">
+                <p>愿你每次换水，都有一小段空白时间，只属于你自己。</p>
+                <div class="signature-hand">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div style="margin-top: 20px; font-size:1rem; color:#b28b7d;">
+                    <span>🎐 花在瓶里，春天在屋里。</span>
+                </div>
+            </div>
+            <div class="date-small">
+                <span>🌸  &nbsp; 三月初 · 风还凉 · 带了一束花来</span><br>
+            </div>
+        </div>
+
+        <!-- 最末的小诗，自然不刻意 -->
+        <div class="tiny-footer">
+            <span>🌷 郁金香会歪头找太阳，</span>
+            <span>转一下花瓶就好。</span>
+            <span class="tulip-bulb">🌷</span>
+        </div>
+
+        <!-- 底部留一点余白 -->
+        <div style="height: 8px;"></div>
+    </div>
+</body>
+</html>
